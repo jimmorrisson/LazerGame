@@ -14,14 +14,12 @@ public class LazerScript : MonoBehaviour
 	public GameObject endPanel; //UI panel that shows while end
 	public GameObject turret;
 	public int lengthOfLineRenderer = 20;
-	private bool RefIsActive;
 
 	void Start () 
 	{
 		endPanel.SetActive (false);
 		lr = gameObject.GetComponent<LineRenderer> ();
 		lr.enabled = false;
-		RefIsActive = false;
 	}
 		
 	void Update () 
@@ -31,7 +29,6 @@ public class LazerScript : MonoBehaviour
 		{
 			DrawLaser();
 		}
-		RefIsActive = false;
 	}
 
 	void DrawLaser()
