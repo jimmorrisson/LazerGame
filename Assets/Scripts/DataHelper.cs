@@ -2,13 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
+using System;
 
 public class DataHelper : MonoBehaviour 
 {
 	public static DataHelper Instance{ get; set; }
 	public BitArray UnlockedLevel{ get; set; }
 	public int CurrentLevel{ get; set; }
-	public List<Level> levels = new List<Level>();
+	public List<Level> levels { get; set; }
+    public TextAsset LevelData;
 
 	void Start () 
 	{
@@ -19,11 +21,25 @@ public class DataHelper : MonoBehaviour
 		//Load the previous scene
 		Load();
 
+        //Reading all levels
+        ReadLevelData();
+
 		//Load Scene
 		EditorSceneManager.LoadScene("MainMenuScene");
 	}
 
-	public void Save()
+    private void ReadLevelData()
+    {
+        levels = new List<Level>();
+        string[] allLevels = LevelData.text.Split('%');
+        foreach(string s in allLevels)
+        {
+            Debug.Log(s);
+            levels.Add(new Level(s));
+        }
+    }
+
+    public void Save()
 	{
 		string saveString = "";
 		for (int i = 0; i < UnlockedLevel.Count; i++) 

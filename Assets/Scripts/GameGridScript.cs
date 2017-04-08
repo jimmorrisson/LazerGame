@@ -11,7 +11,8 @@ public class Tile
 
 public class GameGridScript : MonoBehaviour 
 {
-	private const int AMT_TILES_X = 16;
+    public static GameGridScript Instance { get; set; }
+    private const int AMT_TILES_X = 16;
 	private const int AMT_TILES_Y = 8;
 	private const float TILE_SIZE = 1.0f;
 	private int SelectedTurretIndex;
@@ -97,4 +98,9 @@ public class GameGridScript : MonoBehaviour
 			Debug.Log ("Not enough gold");
 		}
 	}
+
+    public void SpawnObjects(int index, int laneIndex)
+    {
+
+    }
 }

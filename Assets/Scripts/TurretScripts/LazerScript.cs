@@ -70,6 +70,24 @@ public class LazerScript : MonoBehaviour
 						refLR.SetPosition (verti - 1, refRayHit.point);
 					}
 				}
+				if (hit.collider.tag == "Prism")
+				{
+					GameObject prism = hit.collider.gameObject;
+					Transform[] childPos = prism.GetComponentsInChildren<Transform> ();
+					LineRenderer[] children = prism.GetComponentsInChildren<LineRenderer> ();
+					for (int i = 0; i < children.Length; i++) 
+					{
+						RaycastHit prismHit;
+						children[i].enabled = true;
+						children[i].SetPosition (0, childPos[i].transform.position);
+						Vector3 prismRot = new Vector3 (0,  currot.y + i*(-45), 0);
+						if (Physics.Raycast (childPos[i].transform.position, 
+							   prismRot, out prismHit, dist)) 
+						{
+							children[i].SetPosition (verti - 1, prismHit.point);
+						}
+					} 
+				}
 			}
 
 			else
