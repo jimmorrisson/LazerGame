@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public struct objectsSpawnInformation
+public struct enemySpawnInformation
 {
     public int positionX;
     public int positionZ;
@@ -14,10 +14,10 @@ public class Level
     public int levelIndex { get; set; }
     public uint UnlockedTowers;
     public int StartingGold;
-    public List<objectsSpawnInformation> objects;
+    public List<enemySpawnInformation> objects;
     public Level(string levelString)
     {
-        objects = new List<objectsSpawnInformation>();
+        objects = new List<enemySpawnInformation>();
         string[] allLines = levelString.Split('\n');
         string[] firstLineValue = allLines[0].Split(',');
         levelName = firstLineValue[0];
@@ -30,7 +30,7 @@ public class Level
             if (allLines[i] == "")
                 break;
             string[] objectInfo = allLines[i].Split(',');
-            objectsSpawnInformation o = new objectsSpawnInformation();
+            enemySpawnInformation o = new enemySpawnInformation();
             o.positionX = int.Parse(objectInfo[0]);
             o.positionZ = int.Parse(objectInfo[1]);
             o.time = int.Parse(objectInfo[2]);
