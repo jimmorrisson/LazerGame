@@ -59,7 +59,7 @@ public class LazerScript : MonoBehaviour
 				{
 					Debug.Log ("Działa");
 					GameObject mirror = hit.collider.gameObject;
-					LineRenderer refLR = mirror.GetComponent<LineRenderer> ();
+					LineRenderer refLR = mirror.GetComponentInChildren<LineRenderer> ();
 					refLR.SetPosition (0, mirror.transform.position);
 					refLR.enabled = true;
 					RaycastHit refRayHit;

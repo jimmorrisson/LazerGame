@@ -7,10 +7,9 @@ public class BaseEnemyScript : MonoBehaviour
 {
     private Quaternion MyRotation;
     private float Speed;
+    private bool attack = false;
 
     public Rigidbody myRigid;
-
-    // public GameObject[] turrets = new GameObject[2];
     public Transform turret;
 
     private void Start()
@@ -19,31 +18,42 @@ public class BaseEnemyScript : MonoBehaviour
         Speed = 0.05f;
         MyRotation = transform.rotation;
         myRigid = gameObject.GetComponent<Rigidbody>();
+
+        //Checking for turret
+        if (GameObject.FindGameObjectWithTag("Turret") != null)
+        {
+            turret = GameObject.FindGameObjectWithTag("Turret").transform;
+            attack = true;
+            Debug.Log("Attack " + turret.GetComponent<BaseTurret>().Life);
+        }
     }
 
     private void Update()
     {
-        //transform.position += 0.1f*Vector3.left;
-        if (GameObject.FindGameObjectWithTag("Turret") != null)
+        if (attack == true)
         {
-            turret = GameObject.FindGameObjectWithTag("Turret").transform;
             AttactTurret();
         }
-        else
-            Rest();
-        //if (turret != null)
-        //Debug.Log(myRigid.velocity);
     }
 
     private void AttactTurret()
     {
         transform.LookAt(turret);
-        // if(turret.position.z )
         transform.position += transform.forward * Speed;
     }
 
     private void Rest()
     {
         // Debug.Log("No player on the scene");
+    }
+
+    public void OnTurretSpawned(object source, TurretSpawnedEventArgs e)
+    {
+        if (GameObject.FindGameObjectWithTag("Turret") != null)
+        {
+            turret = GameObject.FindGameObjectWithTag("Turret").transform;
+        }
+        Debug.Log("Attack " + e.Life);
+        attack = true;
     }
 }

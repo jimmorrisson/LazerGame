@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
 
-
     private Level CurrentLevel;
     private float StartingTime;
 
@@ -17,7 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemyContainer;
     public Text currentLevelIndex;
     public Text goldAmountText;
-
+    public bool enemySpawned;
 
     void Start()
     {
@@ -37,11 +36,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         float gameDuration = Time.time - StartingTime;
-        for(int i = 0; i < CurrentLevel.objects.Count; i++)
+        for (int i = 0; i < CurrentLevel.objects.Count; i++)
         {
-            if(CurrentLevel.objects[i].time < gameDuration)
+            if (CurrentLevel.objects[i].time < gameDuration)
             {
                 Instantiate(enemyContainer[1], new Vector3(CurrentLevel.objects[i].positionX + 0.5f, 0f, CurrentLevel.objects[i].positionZ + 0.5f), Quaternion.identity);
+                enemySpawned = true;
                 CurrentLevel.objects.Remove(CurrentLevel.objects[i]);
             }
         }
@@ -68,12 +68,12 @@ public class GameManager : MonoBehaviour
     {
         goldAmountText.text = Gold.ToString();
     }
-   /* private void AddEnemies()
-    {
-        foreach (enemySpawnInformation e in GameManager.Instance.CurrentLevel.objects)
-        {
-            Instantiate(enemyContainer[1], new Vector3(e.positionX + 0.5f, 0f, e.positionZ + 0.5f), Quaternion.identity);
-            CurrentLevel.objects.Remove(e);
-        }
-    }*/
+    /* private void AddEnemies()
+     {
+         foreach (enemySpawnInformation e in GameManager.Instance.CurrentLevel.objects)
+         {
+             Instantiate(enemyContainer[1], new Vector3(e.positionX + 0.5f, 0f, e.positionZ + 0.5f), Quaternion.identity);
+             CurrentLevel.objects.Remove(e);
+         }
+     }*/
 }

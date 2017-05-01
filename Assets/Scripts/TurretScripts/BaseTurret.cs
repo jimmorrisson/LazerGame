@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class BaseTurret : MonoBehaviour {
+public class BaseTurret : MonoBehaviour
+{
+    public uint Life = 100;
+    public Transform position;
 
-	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        Life = 100;
+	}
+
+	void Update ()
+    {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
