@@ -34,7 +34,6 @@ public class DataHelper : MonoBehaviour
         string[] allLevels = LevelData.text.Split('%');
         foreach(string s in allLevels)
         {
-            Debug.Log(s);
             levels.Add(new Level(s));
         }
     }

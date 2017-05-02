@@ -57,7 +57,6 @@ public class LazerScript : MonoBehaviour
 				}
 				if (hit.collider.tag == "reflect") 
 				{
-					Debug.Log ("Działa");
 					GameObject mirror = hit.collider.gameObject;
 					LineRenderer refLR = mirror.GetComponentInChildren<LineRenderer> ();
 					refLR.SetPosition (0, mirror.transform.position);

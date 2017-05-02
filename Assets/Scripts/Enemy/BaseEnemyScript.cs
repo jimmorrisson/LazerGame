@@ -2,33 +2,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BaseEnemyScript : MonoBehaviour
 {
-    private Quaternion MyRotation;
+    //private Quaternion MyRotation;
     private float Speed;
     private bool attack = false;
+    private NavMeshAgent Agent;
 
     public Rigidbody myRigid;
     public Transform turret;
 
     private void Start()
     {
-        PlayerPrefs.DeleteAll();
         Speed = 0.05f;
-        MyRotation = transform.rotation;
+        //MyRotation = transform.rotation;
         myRigid = gameObject.GetComponent<Rigidbody>();
+
+        Agent = GetComponent<NavMeshAgent>();
 
         //Checking for turret
         if (GameObject.FindGameObjectWithTag("Turret") != null)
         {
             turret = GameObject.FindGameObjectWithTag("Turret").transform;
             attack = true;
-            Debug.Log("Attack " + turret.GetComponent<BaseTurret>().Life);
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (attack == true)
         {
@@ -38,8 +40,9 @@ public class BaseEnemyScript : MonoBehaviour
 
     private void AttactTurret()
     {
-        transform.LookAt(turret);
-        transform.position += transform.forward * Speed;
+        Agent.SetDestination(turret.position);
+       /* transform.LookAt(turret);
+        transform.position += transform.forward * Speed;*/
     }
 
     private void Rest()
@@ -53,7 +56,6 @@ public class BaseEnemyScript : MonoBehaviour
         {
             turret = GameObject.FindGameObjectWithTag("Turret").transform;
         }
-        Debug.Log("Attack " + e.Life);
         attack = true;
     }
 }
